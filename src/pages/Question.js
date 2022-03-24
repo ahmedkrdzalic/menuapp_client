@@ -26,8 +26,13 @@ function Question() {
 
 
     const addNewComment = () => {
-      axios.post(`http://localhost:3001/comments`, {commentBody: newComment, QuestionId: id,} ).then((response) => {
-            const commentToAdd = {commentBody: newComment,};
+      axios.post(`http://localhost:3001/comments`, {commentBody: newComment, QuestionId: id}, {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        withCredentials: true
+      }).then((response) => {
+            const commentToAdd = {commentBody: newComment, username: response.data.username};
             setComments([...comments, commentToAdd]);
             setNewComment("");
         })
@@ -49,7 +54,7 @@ function Question() {
         {comments.map((comment, key) => {
           return (
             <div className='mt-1 pt-2 border-1 border rounded' key={key}>
-              <h5>{comment.commentBody}</h5>
+              <h5>{comment.commentBody} - <span>{comment.username}</span></h5>
             </div>
           )
         })}

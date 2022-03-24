@@ -20,7 +20,7 @@ function Registration() {
     })
 
     const Registration_Submit = (data) => {
-        axios.post("http://localhost:3001/auth/registration", data).then((response) => {
+        axios.post("http://localhost:3001/user/registration", data).then((response) => {
             navigate("/");
         })
     };
