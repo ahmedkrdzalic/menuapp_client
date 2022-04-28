@@ -8,41 +8,32 @@ import {LoginContext} from "../helpers/LoginContext";
 function Menu() {
     const {user, setUser} = useContext(LoginContext);
 
-    const logout = (e) => {
-        
-        setUser({});
-    }
-
   return (
-    <div className='container-fluid bg-dark p-0'>
-        <header className="py-3 px-2 text-white">
-            <div className="container p-0">
-                <div className="d-flex flex-wrap justify-content-start">
-                    <ul className="nav col-auto me-auto mb-2 justify-content-center mb-md-0">
-                        <li className=''><Link className='text-white' to="/" >Home</Link></li>
-                        <li className='px-1'><Link className='text-white' to="/newquestion" >New Question</Link></li>
-                        {user.id && <li className=''><Link className='text-white' to="/profile" >Profile</Link></li>}
-                    </ul>
-                    <div className="text-end">
-                        {!user.id && <Link className='text-white' to="/login" >
-                            <button type="button" className="btn btn-sm btn-outline-light me-2">
-                                Login
-                            </button>
-                        </Link>}
-                        {!user.id && <Link className='text-white' to="/registration" >
-                            <button type="button" className="btn btn-sm btn-warning">
-                                Sign-up
-                            </button>
-                        </Link>}
-                        {user.id &&
-                            <button type="button" className="btn btn-sm btn btn-outline-light" onClick={logout}>
-                                Logout
-                            </button>
-                        }
-                    </div>
-                </div>
-            </div>
-        </header>
+    <div className='absolute top-0 left-0 right-0 h-auto bg-gray-900 border-gray-700 text-white border-b-2'>
+      <nav className="flex items-center justify-between flex-wrap bg-teal-500 p-4">
+        <Link className='' to="/" >
+          <div className="flex items-center flex-shrink-0 text-white mr-6">
+            <svg className="fill-current h-8 w-8 mr-2" width="54" height="54" ></svg>
+            <span className="font-semibold text-xl tracking-tight">Tailwind CSS</span>
+          </div>
+        </Link>
+        <div className="flex-grow flex justify-end w-auto">
+          <Link className='' to="/registration" >
+            <button 
+            className='mr-4 px-4 py-2 leading-none rounded bg-white hover:bg-teal-500 border border-transparent hover:border hover:border-white hover:text-white text-teal-600 ' 
+            type='submit'>
+                Register
+            </button>
+          </Link>
+          <Link className='' to="/login" >
+            <button 
+            className='px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white' 
+            type='submit'>
+                Login
+            </button>
+          </Link>
+        </div>
+      </nav>
     </div>
   )
 }
