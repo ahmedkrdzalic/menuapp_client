@@ -28,7 +28,10 @@ function Registration() {
                 withCredentials: true
             }
         ).then((response) => {
-            navigate("/login");
+            if(response.data === "SUCCESS"){
+                navigate("/login");
+            };
+            alert(response.data);
         })
     };
 

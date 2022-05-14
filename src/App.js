@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Home from "./pages/Home";
 import Registration from "./pages/Registration";
 import Login from "./pages/Login";
-import Menu from "./components/Menu";
+import MainMenu from "./components/MainMenu";
 import Profile from "./pages/Profile";
 import Dashboard from "./pages/Dashboard";
 import {LoginContext} from "./helpers/LoginContext";
@@ -18,7 +18,7 @@ function App() {
     <div className="">
       <LoginContext.Provider value={{user, setUser}}>
       <Router>
-        <Menu />
+        <MainMenu />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/registration" element={<Registration />} />
