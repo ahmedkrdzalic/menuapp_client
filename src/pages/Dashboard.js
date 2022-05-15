@@ -4,10 +4,10 @@ import {LoginContext} from "../helpers/LoginContext";
 import MenuCard from "../components/MenuCard";
 
 
-
 function Dashboard() {
     const[menus, setMenus] = useState([]);
     const {user, setUser} = useContext(LoginContext);
+    
 
 
     useEffect(() => {
@@ -19,7 +19,6 @@ function Dashboard() {
             })
             .then((response) => {
                 setMenus(response.data)
-                console.log(response.data);
             }
         );
     }, []);
@@ -38,11 +37,6 @@ function Dashboard() {
                         <MenuCard menu={menu}/>
                     )
                 })}
-                        <MenuCard menu={{title: "Hello Hello HelloHello Hello HelloHello Hello"}}/>
-                        <MenuCard menu={{title: "Hello Hello HelloHello Hello HelloHello Hello"}}/>
-                        <MenuCard menu={{title: "Hello Hello HelloHello Hello HelloHello Hello"}}/>
-                        <MenuCard menu={{title: "Hello Hello HelloHello Hello HelloHello Hello"}}/>
-                        <MenuCard menu={{title: "Hello Hello HelloHello Hello HelloHello Hello"}}/>
 
 
             </div>

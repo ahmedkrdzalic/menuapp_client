@@ -6,13 +6,27 @@ import MainMenu from "./components/MainMenu";
 import Profile from "./pages/Profile";
 import Dashboard from "./pages/Dashboard";
 import {LoginContext} from "./helpers/LoginContext";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from "axios";
+import EditMenu from "./pages/EditMenu";
 
 
 
 function App() {
 
   const [user, setUser] = useState({});
+
+  useEffect(() => {
+    axios.get(`http://localhost:3001/user/profile`, {
+            headers: {
+              "Content-Type": "application/json"
+            },
+            withCredentials: true
+            })
+            .then((response) => {
+              setUser(response.data);
+            });
+  }, []);
 
   return (
     <div className="">
@@ -25,6 +39,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/editmenu/:id" element={<EditMenu />} />
         </Routes>
       </Router>
       </LoginContext.Provider>

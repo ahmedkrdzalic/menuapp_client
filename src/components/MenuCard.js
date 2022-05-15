@@ -1,32 +1,10 @@
-import React, { useState } from 'react'
-import axios from 'axios';
+import React from 'react'
+import { useNavigate } from "react-router-dom";
 
 
 function MenuCard(props) {
 
-    const [menu, setMenu] = useState({});
-
-    //aktivirat ovu funkciju kad zavrsim dashboard menus display and sample menu JSON
-    function OnClick_Edit() {
-        axios.get(`http://localhost:3001/menus`, {
-            params: {
-                //stavit menu iz menucardovog keya ili IDa
-                MenuId: 1
-            },
-            headers: {
-              "Content-Type": "application/json"
-            },
-            withCredentials: true
-            })
-            .then((response) => {
-                setMenu(response.data)
-                console.log(response.data);
-            }
-        );
-    }
-    
-
-
+    let navigate = useNavigate();
 
     if(props.add){
         //napravit da se moze kliknut i otvorit novi menu templejt u uredjivacu
@@ -38,7 +16,7 @@ function MenuCard(props) {
     }
 
   return (
-      //dugmad napravit responsive da uredjuje se ili da se briše
+      //prvo edit - ne link da bude nego 
     <div 
     key={props.menu.id} 
     className="text-slate-500 basis-64 shrink-0 rounded overflow-hidden border-2 border-teal-500 justify-center text-center bg-gray-100 flex flex-col flex-wrap content-center max-h-64 relative">
@@ -49,7 +27,11 @@ function MenuCard(props) {
 
         </div>
         <div className="absolute bottom-0 right-0 flex flex-row flex-nowrap">
-            <button className="inline-block bg-gray-200 hover:bg-gray-300 rounded px-2 py-1 text-sm font-semibold mr-2 mb-2">EDIT</button>
+            <button 
+            onClick={() => {navigate(`/editmenu/${props.menu.id}`)}} 
+            className="inline-block bg-gray-200 hover:bg-gray-300 rounded px-2 py-1 text-sm font-semibold mr-2 mb-2">
+                EDIT
+            </button>
             <button className="inline-block bg-gray-200 hover:bg-gray-300 rounded px-2 py-1 text-sm font-semibold mr-2 mb-2">DELETE</button>
         </div>
     </div>
