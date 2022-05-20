@@ -31,6 +31,9 @@ function EditMenu() {
 
     function onChangeValue_category_id(e) {
         setCategory_id(e.target.value);
+        setItem_id(0);
+
+
     }
 
     function onChangeValue_item_id(e) {
@@ -41,7 +44,7 @@ function EditMenu() {
 
   return (
     <div className=''>
-        <div className='text-gray-100 float-left h-screen w-72 p-2 border-r-2 border-solid border-gray-400 bg-gray-900'>
+        <div className='text-gray-100 float-left h-screen max-h-screen overflow-auto w-72 p-2 border-r-2 border-solid border-gray-400 bg-gray-900'>
             <label className='text-md text-gray-300 font-thin'>Menu: </label><span className='text-2xl font-bold text-gray-100'>{menu.title}</span>
             <hr className='border-gray-500 pb-3' />
             <label className='text-md text-gray-300 font-thin'>Categories: </label>
@@ -103,10 +106,11 @@ function EditMenu() {
                     newMenu.menuDATA.categories[category_id][item_id].price = e.target.value;
                     setMenu(newMenu);
                 }}/>
+                
             </div>
 
         </div>
-        <div className='block overflow-hidden '>
+        <div className='block overflow-hidden overflow-y-auto max-h-screen'>
             <DisplayMenu menu={menu} />
         </div>
     </div>
