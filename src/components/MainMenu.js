@@ -10,7 +10,7 @@ function MainMenu() {
 
   return (
     <div className='h-auto bg-gray-900 border-gray-700 text-white border-b-2'>
-      <nav className="flex items-center justify-between flex-wrap bg-teal-500 p-4">
+      <nav className="flex items-center justify-between flex-wrap bg-teal-500 px-4 py-2">
         <Link className='' to="/" >
           <div className="flex items-center flex-shrink-0 text-white mr-6">
             <span className="font-semibold text-xl tracking-tight">MenuApp</span>
