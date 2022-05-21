@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React,{useContext} from 'react'
 import { Link } from "react-router-dom";
 import {LoginContext} from "../helpers/LoginContext";
@@ -6,7 +5,7 @@ import {LoginContext} from "../helpers/LoginContext";
 
 
 function MainMenu() {
-    const {user, setUser} = useContext(LoginContext);
+    const {user} = useContext(LoginContext);
 
   return (
     <div className='h-auto bg-gray-900 border-gray-700 text-white border-b-2'>
