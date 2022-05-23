@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams } from 'react-router-dom';
 import { INITIAL_MENU } from '../helpers/InitialMenu';
 import DisplayMenu from './DisplayMenu';
+import GeneralEdit from '../components/GeneralEdit';
 
 
 function EditMenu() {
@@ -19,6 +20,10 @@ function EditMenu() {
     //about form for adding item  
     const[addItemFormIsOpen, setAddItemFormIsOpen] = useState(false);
     const[addItemName, setAddItemName] = useState("");
+
+    //is the form fro general settings open or closed
+    const[generalSettingsFormIsOpen, setGeneralSettingsFormIsOpen] = useState(false);
+
 
 
     useEffect(() => {
@@ -114,6 +119,32 @@ function EditMenu() {
         <div className='text-gray-100 float-left h-screen max-h-screen overflow-auto w-72 p-2 border-r-2 border-solid border-gray-400 bg-gray-900'>
             <label className='text-md text-gray-300 font-thin'>Menu: </label><span className='text-2xl font-bold text-gray-100'>{menu.title}</span>
             <hr className='border-gray-500 pb-3' />
+
+            {/* GENERAL SETTINGS */}
+            <div name="everything about General settings">
+                <button className='w-full flex justify-between hover:bg-gray-800 hover:cursor-pointer' onClick={()=>{if(generalSettingsFormIsOpen)setGeneralSettingsFormIsOpen(false); else setGeneralSettingsFormIsOpen(true)}}>
+                    <label className='text-md text-gray-300 font-thin'>GENERAL SETTINGS </label>
+                    {
+                        generalSettingsFormIsOpen
+                        ? <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 inline-block mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+                        </svg>
+                        : <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 inline-block mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                        
+                    }
+                </button>
+                {
+                    generalSettingsFormIsOpen && 
+                    <GeneralEdit props={{setMenu:setMenu, menu: menu, category_id:category_id, item_id:item_id}} />
+                }
+
+                <hr className='border-gray-500 pb-3 mt-3' />
+            </div>
+
+
+
             {/* DISPLAY CATEGORIES */}
             <label className='text-md text-gray-300 font-thin'>Categories: </label>
             <div className='flex flex-col' >
@@ -130,9 +161,9 @@ function EditMenu() {
                         )
                     } )}
                 </div>
-                <div onClick={()=>{if(addCategoryFormIsOpen)setAddCategoryFormIsOpen(false); else setAddCategoryFormIsOpen(true)}} className="mt-px cursor-pointer text-center px-3 py-1 bg-gray-700 rounded-sm hover:bg-gray-600 text-gray-500 hover:text-gray-300 font-bold " >
+                <button onClick={()=>{if(addCategoryFormIsOpen)setAddCategoryFormIsOpen(false); else setAddCategoryFormIsOpen(true)}} className="mt-px cursor-pointer text-center px-3 py-1 bg-gray-700 rounded-sm hover:bg-gray-600 text-gray-500 hover:text-gray-300 font-bold " >
                     +
-                </div>
+                </button>
                 {
                     addCategoryFormIsOpen &&
                     <form className='flex flex-col space-y-px mt-2' onSubmit={onSubmitAddCategory}>
@@ -163,9 +194,9 @@ function EditMenu() {
                         )
                     } )}
                 </div>
-                <div onClick={()=>{if(addItemFormIsOpen)setAddItemFormIsOpen(false); else setAddItemFormIsOpen(true)}} className="mt-px cursor-pointer text-center px-3 py-1 bg-gray-700 rounded-sm hover:bg-gray-600 text-gray-500 hover:text-gray-300 font-bold " >
+                <button onClick={()=>{if(addItemFormIsOpen)setAddItemFormIsOpen(false); else setAddItemFormIsOpen(true)}} className="mt-px cursor-pointer text-center px-3 py-1 bg-gray-700 rounded-sm hover:bg-gray-600 text-gray-500 hover:text-gray-300 font-bold " >
                     +
-                </div>
+                </button>
                 {
                     addItemFormIsOpen &&
                     <form className='flex flex-col space-y-px mt-2' onSubmit={onSubmitAddItem}>
@@ -211,6 +242,55 @@ function EditMenu() {
                     var newMenu = {...menu};
                     newMenu.menuDATA.categories[category_id][item_id].price = e.target.value;
                     setMenu(newMenu);
+                }}/>
+
+                {/* Adding image for an item */}
+                <label className='text-sm text-gray-300 font-thin'>image:</label>
+                <input 
+                type="file"
+                className='block w-full text-sm text-slate-500
+                file:mr-4 file:py-2 file:px-4
+                file:border-0
+                file:text-sm file:font-semibold
+                file:bg-teal-50 file:text-teal-700
+                hover:file:bg-teal-100' 
+                onChange={(e)=>{
+                    e.preventDefault();
+                    console.log(menu.menuDATA.categories[category_id][item_id].img);
+                    const formData = new FormData();
+                    formData.append("for", "item");
+                    formData.append("image", e.target.files[0]);
+                    axios
+                        .post(`http://localhost:3001/menus/image-upload`, formData,
+                        {
+                            headers: {
+                            "Content-Type": "multipart/form-data"
+                            },
+                            withCredentials: true
+                        })
+                        .then((response) => {
+                            if(response.data.img_name){
+                                var newMenu = {...menu};
+                                axios
+                                    .delete(`http://localhost:3001/menus/image-delete/${newMenu.menuDATA.categories[category_id][item_id].img}`,
+                                    {
+                                        headers: {
+                                        "Content-Type": "application/json"
+                                        },
+                                        withCredentials: true
+                                    })
+                                    .then((res)=>{
+                                        newMenu.menuDATA.categories[category_id][item_id].img = response.data.img_name;
+                                        setMenu(newMenu);
+                                    })
+                                    .catch((res)=>{
+                                        newMenu.menuDATA.categories[category_id][item_id].img = response.data.img_name;
+                                        setMenu(newMenu);
+                                    });
+                                
+                            }else alert("Not able to upload!");
+                        })
+                        .catch((err) => {console.log(err)});
                 }}/>
                 
             </div>

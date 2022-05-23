@@ -21,9 +21,9 @@ function DisplayMenu(props) {
   return (
     <div className='w-full bg-gray-300 '>
         <div className='mx-auto sm:max-w-3xl max-w-md py-3 px-7 bg-gray-100'>
-          <div name="logo" className='aspect-video w-4/12 mx-auto bg-gray-200 my-3'>
-            <div className=''>
-              
+          <div>
+            <div name="imageBox" className='mx-auto bg-no-repeat bg-center bg-contain aspect-square w-4/12' style={{backgroundImage:`url(http://localhost:3001/images/${props.menu.menuDATA.logo})`}}>
+
             </div>
           </div>
           <div className='flex flex-row flex-nowrap justify-start gap-3 overflow-x-auto bg-inherit sticky top-0 px-1 py-2 z-50 '>
