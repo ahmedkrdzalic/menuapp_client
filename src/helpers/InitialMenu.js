@@ -1,30 +1,24 @@
 export const INITIAL_MENU = {
-    title: "Test Title",
+    title: "Initial menu title",
     menuDATA: {
-        title: "Test Title",
-        currency: "BAM",
+        title: "Initial menu title",
+        currency: "KM",
         category_names: ["Category1", "Category2",],
         categories: 
         [
             [
                 {
                     title: "Initial Item",
-                    description: "Test Description Test Description Test Description Test Description Test Description Test Description ",
+                    description: "Test Description Test Description",
                     price: 3,
                     img: ""
                 }
             ],
             [
                 {
-                    title: "Item1 cat2",
-                    description: "Test Description Test Description ",
+                    title: "Initial Item",
+                    description: "Test Description Test Description",
                     price: 12,
-                    img: ""
-                },
-                {
-                    title: "Item2 cat2",
-                    description: "Test Description Test Description Test Description Test Description Test Description Test Description Test Description Test Description Test Description ",
-                    price: 4.90,
                     img: ""
                 }
             ]

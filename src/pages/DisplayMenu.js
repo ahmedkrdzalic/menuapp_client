@@ -19,8 +19,8 @@ function DisplayMenu(props) {
 
 
   return (
-    <div className='w-full bg-gray-300 '>
-        <div className='mx-auto sm:max-w-3xl max-w-md py-3 px-7 bg-gray-100'>
+    <div className='min-h-screen w-full bg-gray-300 '>
+        <div className='min-h-screen mx-auto sm:max-w-3xl max-w-md py-3 px-7 bg-gray-100'>
           <div>
             <div name="imageBox" className='mx-auto bg-no-repeat bg-center bg-contain aspect-square w-4/12' style={{backgroundImage:`url(http://localhost:3001/images/${props.menu.menuDATA.logo})`}}>
 
