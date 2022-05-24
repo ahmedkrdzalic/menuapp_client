@@ -8,16 +8,21 @@ function MenuCard(props) {
     let navigate = useNavigate();
 
     function onClickDeleteMenu(menu_id) {
-        axios.delete(`http://localhost:3001/menus/${props.props.menu.id}`, {
+        axios.delete(`http://localhost:3001/menus/${menu_id}`, {
             headers: {
               "Content-Type": "application/json"
             },
             withCredentials: true
             })
             .then((response) => {
-                props.props.setReload(true);
-            }
-        );
+                console.log(response.data);
+                props.props.setMenus(props.props.menus.filter(m => m.id !== menu_id));
+                console.log(props.props.menus);
+            })
+            .catch((error)=>{
+                console.log(error.response.data);
+            })
+        
     }
 
 

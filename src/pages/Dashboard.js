@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
     const[menus, setMenus] = useState([]);
-    const {user, setUser} = useContext(LoginContext);
 
     const [showModal, setShowModal] = useState(false);
     const [possibleNewMenu, setPossibleNewMenu] = useState("");
@@ -16,14 +15,8 @@ function Dashboard() {
 
     const [errorResponseNewMenu, setErrorResponseNewMenu] = useState("");
 
-    const [reload, setReload] = useState(false);
-
-
     let navigate = useNavigate();
-    
-    if(reload===true) {
-        window.location.reload(true);
-    }
+
 
 
 
@@ -74,7 +67,7 @@ function Dashboard() {
                 
                 {menus.map((menu) => {
                     return (
-                        <MenuCard props={{menu:menu, setReload:setReload}}/>
+                        <MenuCard props={{menu:menu, setMenus:setMenus, menus:menus}}/>
                     )
                 })}
 
@@ -83,13 +76,6 @@ function Dashboard() {
         </div>
 
         {/** POPUP MODAL ADD NEW MENU */}
-        <button
-        className="bg-teal-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-        type="button"
-        onClick={() => setShowModal(true)}
-        >
-            Open regular modal
-        </button>
         {showModal ? (
             <>
             <div
