@@ -24,6 +24,8 @@ function EditMenu() {
     //is the form fro general settings open or closed
     const[generalSettingsFormIsOpen, setGeneralSettingsFormIsOpen] = useState(false);
 
+    const[successfullySavedMenu, setSuccessfullySavedMenu] = useState(false);
+
 
 
     useEffect(() => {
@@ -38,6 +40,12 @@ function EditMenu() {
             }
         );
     }, [id]);
+
+    useEffect(() => {
+        setSuccessfullySavedMenu(false);
+    }, [menu])
+
+
 
     //radio button for categories
     function onChangeValue_category_id(e) {
@@ -56,7 +64,17 @@ function EditMenu() {
         var newCategory_names = [...newMenu.menuDATA.category_names, addCategoryName];
         newMenu.menuDATA.category_names = newCategory_names;
 
-        var newCategoryToAdd = INITIAL_MENU.menuDATA.categories[0];
+        //var newCategoryToAdd = INITIAL_MENU.menuDATA.categories[0];
+
+        var newCategoryToAdd = [
+                                    {
+                                        title: "Initial Item",
+                                        description: "Test Description Test Description",
+                                        price: 3,
+                                        img: ""
+                                    }
+                                ]
+                                
         var newCategories = [...newMenu.menuDATA.categories, newCategoryToAdd];
         newMenu.menuDATA.categories = newCategories;
 
@@ -111,13 +129,47 @@ function EditMenu() {
         setMenu(newMenu);
     }
 
+    function onClickSaveMenu(){
+        axios.put(`http://localhost:3001/menus/${menu.id}`, menu, {
+            headers: {
+              "Content-Type": "application/json"
+            },
+            withCredentials: true
+            })
+            .then((res)=>{
+                if(res.data.msg === "SUCCESS"){
+                    setSuccessfullySavedMenu(true);
+                }
+            })
+            .catch((error)=>{
+                setSuccessfullySavedMenu(false);
+            })
+    }
+
 
 
 
   return (
-    <div className=''>
+    <div className='relative'>
         <div className='text-gray-100 float-left h-screen max-h-screen overflow-auto w-72 p-2 border-r-2 border-solid border-gray-400 bg-gray-900'>
-            <label className='text-md text-gray-300 font-thin'>Menu: </label><span className='text-2xl font-bold text-gray-100'>{menu.title}</span>
+            <div className='flex justify-between items-end'>
+                <div><label className='text-md text-gray-300 font-thin'>Menu: </label><span className='text-2xl font-bold text-gray-100'>{menu.title}</span></div>
+                <div className='flex flex-row items-center'>
+                    {successfullySavedMenu && <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>}
+                    <button 
+                        onClick={(e)=>{
+                            e.preventDefault();
+                            onClickSaveMenu();
+                        }} 
+                        className='px-3 py-1 bg-teal-500 rounded text-white'
+                    >
+                        Save
+                    </button>
+                </div>
+                
+            </div>
             <hr className='border-gray-500 pb-3' />
 
             {/* GENERAL SETTINGS */}
@@ -256,7 +308,6 @@ function EditMenu() {
                 hover:file:bg-teal-100' 
                 onChange={(e)=>{
                     e.preventDefault();
-                    console.log(menu.menuDATA.categories[category_id][item_id].img);
                     const formData = new FormData();
                     formData.append("for", "item");
                     formData.append("image", e.target.files[0]);
@@ -299,6 +350,8 @@ function EditMenu() {
         <div className='block overflow-hidden overflow-y-auto max-h-screen'>
             <DisplayMenu menu={menu} />
         </div>
+
+        
     </div>
 
 

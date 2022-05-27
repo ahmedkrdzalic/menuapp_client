@@ -26,7 +26,7 @@ function DisplayMenu(props) {
 
             </div>
           </div>
-          <div className='flex flex-row flex-nowrap justify-start gap-3 overflow-x-auto bg-inherit sticky top-0 px-1 py-2 z-50 '>
+          <div className='flex flex-row flex-nowrap justify-start gap-3 overflow-x-scroll bg-inherit sticky top-0 px-1 py-2 z-50 '>
             {props.menu.menuDATA.category_names.map((category_name, categoryID) => {
               return (
                 <button onClick={() => handleScrollAnchorClick(categoryID)} key={categoryID} className='rounded-full bg-teal-500 hover:bg-teal-400 text-white px-4 py-1 whitespace-nowrap'>
@@ -41,7 +41,7 @@ function DisplayMenu(props) {
               props.menu.menuDATA.categories.map((category, categoryID) => {
                 return (
                   <div ref={refs[categoryID]} key={categoryID} className="mt-3 bg-inherit">
-                    <span className='text-2xl font-medium text-teal-500 sticky top-12 bg-inherit pr-4 pl-2 py-1 bg-opacity-30 border-teal-500 border-b'>{props.menu.menuDATA.category_names[categoryID]}</span>
+                    <span className='text-2xl font-medium text-teal-500 sticky top-16 bg-inherit pr-4 pl-2 py-1 bg-opacity-30 border-teal-500 border-b'>{props.menu.menuDATA.category_names[categoryID]}</span>
                     <hr className='my-1 border-teal-500' />
                     {
                       category.map((item, itemID) => {
