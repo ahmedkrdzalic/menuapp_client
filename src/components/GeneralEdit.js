@@ -54,6 +54,77 @@ function GeneralEdit(props) {
                 })
                 .catch((err) => {console.log(err)});
         }}/>
+
+        <div className='flex flex-col my-3'>
+            <label className='text-md text-gray-300 '>Color Settings:</label>
+            <div className='flex justify-between items-center ml-2 my-1'>
+                <label className='text-sm text-gray-300 font-thin'>General Text Color:</label>
+                <input 
+                type="color" 
+                value={props.props.menu.menuDATA.colors.general_text_color} 
+                onChange={(e)=>{
+                    var newMenu = {...props.props.menu};
+                    newMenu.menuDATA.colors.general_text_color = e.target.value;
+                    props.props.setMenu(newMenu);
+                }} />
+            </div>
+            <div className='flex justify-between items-center ml-2 my-1'>
+                <label className='text-sm text-gray-300 font-thin'>Primary Background Color:</label>
+                <input 
+                type="color" 
+                value={props.props.menu.menuDATA.colors.bg_primary} 
+                onChange={(e)=>{
+                    var newMenu = {...props.props.menu};
+                    newMenu.menuDATA.colors.bg_primary = e.target.value;
+                    props.props.setMenu(newMenu);
+                }} />
+            </div>
+            <div className='flex justify-between items-center ml-2 my-1'>
+                <label className='text-sm text-gray-300 font-thin'>Secondary Background Color:</label>
+                <input 
+                type="color" 
+                value={props.props.menu.menuDATA.colors.bg_secondary} 
+                onChange={(e)=>{
+                    var newMenu = {...props.props.menu};
+                    newMenu.menuDATA.colors.bg_secondary = e.target.value;
+                    props.props.setMenu(newMenu);
+                }} />
+            </div>
+            <div className='flex justify-between items-center ml-2 my-1'>
+                <label className='text-sm text-gray-300 font-thin'>Item Primary Text Color:</label>
+                <input 
+                type="color" 
+                value={props.props.menu.menuDATA.colors.item_primary_text_color} 
+                onChange={(e)=>{
+                    var newMenu = {...props.props.menu};
+                    newMenu.menuDATA.colors.item_primary_text_color = e.target.value;
+                    props.props.setMenu(newMenu);
+                }} />
+            </div>
+            <div className='flex justify-between items-center ml-2 my-1'>
+                <label className='text-sm text-gray-300 font-thin'>Item Secondary Text Color:</label>
+                <input 
+                type="color" 
+                value={props.props.menu.menuDATA.colors.item_secondary_text_color} 
+                onChange={(e)=>{
+                    var newMenu = {...props.props.menu};
+                    newMenu.menuDATA.colors.item_secondary_text_color = e.target.value;
+                    props.props.setMenu(newMenu);
+                }} />
+            </div>
+            <div className='flex justify-between items-center ml-2 my-1'>
+                <label className='text-sm text-gray-300 font-thin'>Item Background Color:</label>
+                <input 
+                type="color" 
+                value={props.props.menu.menuDATA.colors.item_bg_color} 
+                onChange={(e)=>{
+                    var newMenu = {...props.props.menu};
+                    newMenu.menuDATA.colors.item_bg_color = e.target.value;
+                    props.props.setMenu(newMenu);
+                }} />
+            </div>
+        </div>
+        
     </div>
   )
 }

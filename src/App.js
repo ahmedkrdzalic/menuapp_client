@@ -9,12 +9,13 @@ import {LoginContext} from "./helpers/LoginContext";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import EditMenu from "./pages/EditMenu";
+import DisplayMenuGuest from "./pages/DisplayMenuGuest";
 
 
 
 function App() {
 
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     axios.get(`http://localhost:3001/user/profile`, {
@@ -24,7 +25,9 @@ function App() {
             withCredentials: true
             })
             .then((response) => {
-              setUser(response.data);
+              if(response.data){
+                setUser(response.data);
+              }
             });
   }, []);
 
@@ -40,6 +43,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/editmenu/:id" element={<EditMenu />} />
+          <Route path="/:menutitle" element={<DisplayMenuGuest />} />
         </Routes>
       </Router>
       </LoginContext.Provider>

@@ -1,6 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState, useContext } from 'react'
-import {LoginContext} from "../helpers/LoginContext";
+import React, { useEffect, useState} from 'react'
 import MenuCard from "../components/MenuCard";
 import { INITIAL_MENU } from '../helpers/InitialMenu';
 import { useNavigate } from 'react-router-dom';
